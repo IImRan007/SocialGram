@@ -3,6 +3,7 @@ import { MdLocationPin } from "react-icons/md";
 import { BiBriefcase } from "react-icons/bi";
 import { AiFillLinkedin } from "react-icons/ai";
 import { AiFillGithub } from "react-icons/ai";
+import { LiaExternalLinkAltSolid } from "react-icons/lia";
 
 const UserCard = () => {
   return (
@@ -19,7 +20,7 @@ const UserCard = () => {
             </div>
           </div>
           <div>
-            <RiUserSettingsFill />
+            <RiUserSettingsFill className="cursor-pointer" />
           </div>
         </div>
         <hr className="mt-4" />
@@ -47,18 +48,27 @@ const UserCard = () => {
         <hr className="mt-4" />
         <div className="mt-4">
           <div className="flex items-center gap-4 justify-between">
-            <AiFillLinkedin />
+            <div className="flex items-center gap-4">
+              <AiFillLinkedin size={22} />
+              <div>
+                <h2>LinkedIn</h2>
+                <h2>Network Platform</h2>
+              </div>
+            </div>
             <div>
-              <h2>LinkedIn</h2>
-              <h2>Network Platform</h2>
-              <div></div>
+              <LiaExternalLinkAltSolid />
             </div>
           </div>
-          <div className="flex items-center gap-4 justify-between">
-            <AiFillGithub />
+          <div className="flex items-center gap-4 justify-between mt-2">
+            <div className="flex items-center gap-4">
+              <AiFillGithub size={22} />
+              <div>
+                <h2>Github</h2>
+                <h2>Developers Platform</h2>
+              </div>
+            </div>
             <div>
-              <h2>Github</h2>
-              <h2>Developers Platform</h2>
+              <LiaExternalLinkAltSolid />
             </div>
           </div>
         </div>
