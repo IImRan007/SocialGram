@@ -2,13 +2,13 @@ const Navbar = () => {
   return (
     <div className="navbar bg-base-100 shadow-md">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">Hippo UI</a>
+        <a className="btn btn-ghost normal-case text-xl">Social Gram</a>
       </div>
       <div className="flex-none">
         <div className="dropdown dropdown-end">
           <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
             <div className="w-10 rounded-full">
-              <img src="/images/stock/photo-1534528741775-53994a69daeb.jpg" />
+              <img src="https://i.pinimg.com/474x/0a/a8/58/0aa8581c2cb0aa948d63ce3ddad90c81.jpg" />
             </div>
           </label>
           <ul
