@@ -8,7 +8,7 @@ import { LiaExternalLinkAltSolid } from "react-icons/lia";
 const UserCard = () => {
   return (
     <>
-      <div className="card bg-base-100 shadow-xl py-6 px-4">
+      <div className="card bg-base-100 shadow-xl py-6 px-4 h-[25rem]">
         <div className="flex items-center justify-between">
           <div className="avatar flex items-center gap-x-4">
             <div className="w-12 rounded-full">
@@ -56,7 +56,7 @@ const UserCard = () => {
               </div>
             </div>
             <div>
-              <LiaExternalLinkAltSolid />
+              <LiaExternalLinkAltSolid size={20} cursor={"pointer"} />
             </div>
           </div>
           <div className="flex items-center gap-4 justify-between mt-2">
@@ -68,7 +68,7 @@ const UserCard = () => {
               </div>
             </div>
             <div>
-              <LiaExternalLinkAltSolid />
+              <LiaExternalLinkAltSolid size={20} cursor={"pointer"} />
             </div>
           </div>
         </div>
