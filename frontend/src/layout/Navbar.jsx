@@ -1,8 +1,12 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   return (
     <div className="navbar bg-base-100 shadow-md">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-xl">Social Gram</a>
+        <Link to={"/"} className="btn btn-ghost normal-case text-xl">
+          Social Gram
+        </Link>
       </div>
       <div className="flex-none">
         <div className="dropdown dropdown-end">
@@ -16,10 +20,9 @@ const Navbar = () => {
             className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52"
           >
             <li>
-              <a className="justify-between">Profile</a>
-            </li>
-            <li>
-              <a>Settings</a>
+              <Link to={"/profile"} className="justify-between">
+                Profile
+              </Link>
             </li>
             <li>
               <a>Logout</a>
