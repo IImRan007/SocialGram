@@ -1,6 +1,26 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Login = () => {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { email, password } = formData;
+
+  const handleChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
@@ -12,14 +32,21 @@ const Login = () => {
             a id nisi.
           </p>
         </div>
-        <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
+        <form
+          onSubmit={handleSubmit}
+          className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100"
+        >
           <div className="card-body">
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
               </label>
               <input
-                type="text"
+                type="email"
+                name="email"
+                id="email"
+                value={email}
+                onChange={handleChange}
                 placeholder="Enter your email"
                 className="input input-bordered input-accent"
               />
@@ -29,7 +56,11 @@ const Login = () => {
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="text"
+                type="password"
+                name="password"
+                id="password"
+                value={password}
+                onChange={handleChange}
                 placeholder="Enter your password"
                 className="input input-bordered input-accent"
               />
@@ -49,7 +80,7 @@ const Login = () => {
               </p>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

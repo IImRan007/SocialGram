@@ -1,6 +1,27 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Register = () => {
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+  });
+
+  const { name, email, password } = formData;
+
+  const handleChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  };
+
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
@@ -12,7 +33,10 @@ const Register = () => {
             a id nisi.
           </p>
         </div>
-        <div className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100">
+        <form
+          onSubmit={handleSubmit}
+          className="card flex-shrink-0 w-full max-w-xl shadow-2xl bg-base-100"
+        >
           <div className="card-body">
             <div className="form-control">
               <label className="label">
@@ -20,6 +44,10 @@ const Register = () => {
               </label>
               <input
                 type="text"
+                name="name"
+                value={name}
+                id="name"
+                onChange={handleChange}
                 placeholder="Enter your name"
                 className="input input-bordered input-accent"
               />
@@ -29,7 +57,11 @@ const Register = () => {
                 <span className="label-text">Email</span>
               </label>
               <input
-                type="text"
+                type="email"
+                name="email"
+                id="email"
+                value={email}
+                onChange={handleChange}
                 placeholder="Enter your email"
                 className="input input-bordered input-accent"
               />
@@ -39,7 +71,11 @@ const Register = () => {
                 <span className="label-text">Password</span>
               </label>
               <input
-                type="text"
+                type="password"
+                id="password"
+                value={password}
+                name="password"
+                onChange={handleChange}
                 placeholder="Enter your password"
                 className="input input-bordered input-accent"
               />
@@ -59,7 +95,7 @@ const Register = () => {
               </p>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );
