@@ -24,17 +24,26 @@ const Posts = () => {
         <hr className="mt-2" />
         <div className="flex items-center justify-evenly mt-4">
           <div className="flex gap-12">
-            <div className="flex items-center gap-2 cursor-pointer">
+            <input id="audio" type="file" hidden accept="audio/*" />
+            <input id="video" type="file" hidden accept="video/*" />
+            <input id="image" type="file" hidden accept="image/*" />
+            <div className="flex items-center gap-2">
               <BsFileEarmarkImage />
-              <h2>Image</h2>
+              <label htmlFor="image" className="cursor-pointer">
+                Image
+              </label>
             </div>
-            <div className="flex items-center gap-2 cursor-pointer">
+            <div className="flex items-center gap-2">
               <BsPlayCircle />
-              <h2>Clip</h2>
+              <label htmlFor="video" className="cursor-pointer">
+                Clip
+              </label>
             </div>
-            <div className="flex items-center gap-2 cursor-pointer">
+            <div className="flex items-center gap-2">
               <AiFillAudio />
-              <h2>Audio</h2>
+              <label htmlFor="audio" className="cursor-pointer">
+                Audio
+              </label>
             </div>
             <button className="btn btn-info">Post</button>
           </div>

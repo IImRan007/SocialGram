@@ -6,6 +6,7 @@ const cors = require("cors");
 const { errorHandler } = require("./middleware/errorMiddleware");
 const connectDb = require("./config/db");
 const cloudinary = require("cloudinary").v2;
+const fileUpload = require("express-fileupload");
 const path = require("path");
 
 cloudinary.config({
@@ -19,12 +20,20 @@ connectDb();
 
 const app = express();
 
+app.use(
+  fileUpload({
+    useTempFiles: true,
+    tempFileDir: "/tmp/",
+  })
+);
+
 app.use(express.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/posts", require("./routes/postRoutes"));
 
 // Serve Frontend
 if (process.env.NODE_ENV === "production") {
