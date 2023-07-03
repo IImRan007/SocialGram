@@ -23,41 +23,55 @@ const createPost = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  const imageFileRes = await cloudinary.uploader.upload(
-    req.files.imgFile.tempFilePath,
-    { resource_type: "image", folder: "socialGram" }
-  );
-  console.log(imageFileRes);
+  let imageFileRes;
+  if (req.files.imgFile) {
+    imageFileRes = await cloudinary.uploader.upload(
+      req.files.imgFile.tempFilePath,
+      { resource_type: "image", folder: "socialGram" }
+    );
+  }
 
-  const audioFileRes = await cloudinary.uploader.upload(
-    req.files.audioFile.tempFilePath,
-    { resource_type: "auto", folder: "socialGram" }
-  );
-  console.log(audioFileRes);
+  let audioFileRes;
+  if (req.files.audioFile) {
+    audioFileRes = await cloudinary.uploader.upload(
+      req.files.audioFile.tempFilePath,
+      { resource_type: "video", folder: "socialGram" }
+    );
+  }
 
-  const videoFileRes = await cloudinary.uploader.upload(
-    req.files.videoFile.tempFilePath,
-    { resource_type: "video", folder: "socialGram" }
-  );
-  console.log(videoFileRes);
+  let videoFileRes;
+  if (req.files.videoFile) {
+    videoFileRes = await cloudinary.uploader.upload(
+      req.files.videoFile.tempFilePath,
+      { resource_type: "video", folder: "socialGram" }
+    );
+  }
 
-  const post = await Post.create({
-    description,
-    imgFile: {
+  const obj = {};
+  obj.description = description;
+  if (imageFileRes) {
+    obj.imgFile = {
       public_id: imageFileRes.public_id,
       secure_url: imageFileRes.secure_url,
-    },
-    audioFile: {
+    };
+  }
+  if (audioFileRes) {
+    obj.audioFile = {
       public_id: audioFileRes.public_id,
       secure_url: audioFileRes.secure_url,
-    },
-    videoFile: {
+    };
+  }
+  if (videoFileRes) {
+    obj.videoFile = {
       public_id: videoFileRes.public_id,
       secure_url: videoFileRes.secure_url,
-    },
-    user: req.user.id,
-  });
-  console.log(post);
+    };
+  }
+  obj.user = req.user.id;
+
+  const post = await Post.create(obj);
+
+  // console.log({ post });
 
   res.status(201).json(post);
 });
@@ -159,6 +173,7 @@ const deletePost = asyncHandler(async (req, res) => {
   }
 
   const post = await Post.findById(req.params.id);
+  console.log("post", post);
 
   if (!post) {
     res.status(404);
@@ -170,9 +185,18 @@ const deletePost = asyncHandler(async (req, res) => {
     throw new Error("Not authorized");
   }
 
-  await cloudinary.uploader.destroy(post.imgFile.public_id);
+  await cloudinary.uploader.destroy(post.imgFile.public_id, {
+    resource_type: "image",
+  });
+  await cloudinary.uploader.destroy(post.audioFile.public_id, {
+    resource_type: "video",
+  });
+  await cloudinary.uploader.destroy(post.videoFile.public_id, {
+    resource_type: "video",
+  });
 
-  await post.remove();
+  // await post.remove();
+  await Post.findByIdAndDelete(req.params.id);
 
   res.status(200).json({ success: true });
 });
