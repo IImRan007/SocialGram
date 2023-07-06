@@ -1,5 +1,10 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useContext, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+// Context
+import { UserContext } from "../context/user/UserContext";
+import { login } from "../context/user/UserActions";
+// Toast
+import toast from "react-hot-toast";
 
 const Login = () => {
   const [formData, setFormData] = useState({
@@ -9,6 +14,9 @@ const Login = () => {
 
   const { email, password } = formData;
 
+  const navigate = useNavigate();
+  const { dispatch } = useContext(UserContext);
+
   const handleChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -16,9 +24,19 @@ const Login = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    try {
+      const userData = { email, password };
+
+      const response = await login(userData);
+      dispatch({ type: "LOGIN_USER", payload: response });
+
+      navigate("/");
+      toast.success("Logged In Successfully✌️");
+    } catch (error) {
+      toast.error(error);
+    }
   };
 
   return (
@@ -47,6 +65,7 @@ const Login = () => {
                 id="email"
                 value={email}
                 onChange={handleChange}
+                required
                 placeholder="Enter your email"
                 className="input input-bordered input-accent"
               />
@@ -61,6 +80,7 @@ const Login = () => {
                 id="password"
                 value={password}
                 onChange={handleChange}
+                required
                 placeholder="Enter your password"
                 className="input input-bordered input-accent"
               />

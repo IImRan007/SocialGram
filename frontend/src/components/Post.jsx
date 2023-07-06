@@ -27,6 +27,21 @@ const Post = () => {
         />
       </div>
       <div className="mt-4">
+        <video width="850" height="500" controls className="rounded-xl">
+          <source
+            src="https://drive.google.com/uc?id=1ufu9Ig_L1wg7Sj_GQRjDrHF7Ktfy0LCf"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+      <div className="mt-4">
+        <audio
+          className="w-full"
+          src="https://firebasestorage.googleapis.com/v0/b/butterfly-a800b.appspot.com/o/hassanansari211%40gmail.com%2Faudio%2Fmpeg?alt=media&amp;token=f40cc428-d7e1-419b-be42-84abc0c60f29"
+          controls
+        ></audio>
+      </div>
+      <div className="mt-4">
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Incidunt
         eveniet ullam doloribus natus impedit harum delectus amet beatae quasi
         unde! A explicabo quasi fugit unde eum? Quod molestias animi, explicabo

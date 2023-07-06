@@ -27,19 +27,19 @@ const Posts = () => {
             <input id="audio" type="file" hidden accept="audio/*" />
             <input id="video" type="file" hidden accept="video/*" />
             <input id="image" type="file" hidden accept="image/*" />
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 hover:bg-[#424242] hover:w-[72px] hover:h-[40px] hover:rounded-[6px]">
               <BsFileEarmarkImage />
               <label htmlFor="image" className="cursor-pointer">
                 Image
               </label>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 hover:bg-[#424242] hover:w-[72px] hover:h-[40px] hover:rounded-[6px]">
               <BsPlayCircle />
               <label htmlFor="video" className="cursor-pointer">
                 Clip
               </label>
             </div>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2 hover:bg-[#424242] hover:w-[72px] hover:h-[40px] hover:rounded-[6px]">
               <AiFillAudio />
               <label htmlFor="audio" className="cursor-pointer">
                 Audio
