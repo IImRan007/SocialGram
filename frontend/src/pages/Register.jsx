@@ -1,5 +1,11 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+// Context
+import { UserContext } from "../context/user/UserContext";
+import { register } from "../context/user/UserActions";
+// Toast
+import toast from "react-hot-toast";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +16,10 @@ const Register = () => {
 
   const { name, email, password } = formData;
 
+  const navigate = useNavigate();
+
+  const { dispatch } = useContext(UserContext);
+
   const handleChange = (e) => {
     setFormData((prevState) => ({
       ...prevState,
@@ -17,11 +27,19 @@ const Register = () => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
-  };
+    try {
+      const userData = { name, email, password };
 
+      const data = await register(userData);
+      dispatch({ type: "REGISTER_USER", payload: data });
+      toast.success("Registered Successfully");
+      navigate("/");
+    } catch (error) {
+      toast.error(error.response.data.message);
+    }
+  };
   return (
     <div className="hero min-h-screen bg-base-200">
       <div className="hero-content flex-col lg:flex-row">
@@ -48,6 +66,7 @@ const Register = () => {
                 value={name}
                 id="name"
                 onChange={handleChange}
+                required
                 placeholder="Enter your name"
                 className="input input-bordered input-accent"
               />
@@ -62,6 +81,7 @@ const Register = () => {
                 id="email"
                 value={email}
                 onChange={handleChange}
+                required
                 placeholder="Enter your email"
                 className="input input-bordered input-accent"
               />
@@ -76,6 +96,7 @@ const Register = () => {
                 value={password}
                 name="password"
                 onChange={handleChange}
+                required
                 placeholder="Enter your password"
                 className="input input-bordered input-accent"
               />
