@@ -3,7 +3,7 @@ const PostReducer = (state, action) => {
     case "CREATE_POST":
       return {
         ...state,
-        posts: null,
+        posts: [...state.posts, action.payload],
         post: action.payload,
         error: false,
         success: true,

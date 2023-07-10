@@ -21,7 +21,7 @@ const UserCard = () => {
             <div className="w-12 rounded-full">
               <img src="https://i.pinimg.com/474x/0a/a8/58/0aa8581c2cb0aa948d63ce3ddad90c81.jpg" />
             </div>
-            <div>
+            <div className="w-80 h-12">
               <h2>{userState.user ? userState.user?.name : "Name"}</h2>
               <h3>{userState.user ? userState.user?.email : "Email"}</h3>
             </div>

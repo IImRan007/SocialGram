@@ -11,7 +11,7 @@ import Loader from "../assets/loading.json";
 const Posts = () => {
   const [postData, setPostData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const { dispatchPost } = useContext(PostContext);
+  const { dispatchPost, postState } = useContext(PostContext);
 
   useEffect(() => {
     setLoading(true);
@@ -23,7 +23,7 @@ const Posts = () => {
 
     fetchPosts();
     setLoading(false);
-  }, [dispatchPost]);
+  }, [postState]);
 
   if (!postData || loading) {
     return (

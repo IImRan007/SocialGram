@@ -102,25 +102,27 @@ const PostHandler = () => {
               accept="image/*"
               onChange={onFileChange}
             />
-            <div className="flex items-center gap-2 hover:bg-[#424242] hover:w-[72px] hover:h-[40px] hover:rounded-[6px]">
+            <div className="flex items-center gap-2 hover:text-[aquamarine]">
               <BsFileEarmarkImage />
               <label htmlFor="image" className="cursor-pointer">
                 Image
               </label>
             </div>
-            <div className="flex items-center gap-2 hover:bg-[#424242] hover:w-[72px] hover:h-[40px] hover:rounded-[6px]">
+            <div className="flex items-center gap-2 hover:text-[aquamarine]">
               <BsPlayCircle />
               <label htmlFor="video" className="cursor-pointer">
                 Clip
               </label>
             </div>
-            <div className="flex items-center gap-2 hover:bg-[#424242] hover:w-[72px] hover:h-[40px] hover:rounded-[6px]">
+            <div className="flex items-center gap-2 hover:text-[aquamarine]">
               <AiFillAudio />
               <label htmlFor="audio" className="cursor-pointer">
                 Audio
               </label>
             </div>
-            <button className="btn btn-info">Post</button>
+            <button className="btn btn-info bg-[#2ee7a9] border-black">
+              Post
+            </button>
           </div>
         </div>
       </form>
