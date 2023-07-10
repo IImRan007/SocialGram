@@ -1,12 +1,26 @@
+/* eslint-disable react/prop-types */
 import { useState } from "react";
+// Icons
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiComment } from "react-icons/bi";
 import { AiOutlineSend } from "react-icons/ai";
+// Lazy Loading Component
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
+// Loading Animation
+import Lottie from "lottie-react";
+import Loader from "../assets/loading.json";
 
 const PostItem = ({ post }) => {
   const [commentDiv, setCommentDiv] = useState(false);
-  console.log(post);
-  if (post) {
+
+  if (!post) {
+    return (
+      <div className="flex justify-center items-center min-h-[100vh]">
+        <Lottie animationData={Loader} />
+      </div>
+    );
+  } else {
     return (
       <div className="card bg-base-100 shadow-xl py-6 px-4 mt-10">
         <div className="flex items-center gap-4">
@@ -23,7 +37,8 @@ const PostItem = ({ post }) => {
         {post.description && <div className="mt-4">{post.description}</div>}
         {post.imgFile && (
           <div className="mt-4">
-            <img
+            <LazyLoadImage
+              effect="blur"
               src={post.imgFile?.secure_url}
               alt="post"
               className="max-w-full h-auto rounded-xl"

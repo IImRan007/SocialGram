@@ -1,11 +1,18 @@
+// Icons
 import { RiUserSettingsFill } from "react-icons/ri";
+import { useContext } from "react";
+// Icons
 import { MdLocationPin } from "react-icons/md";
 import { BiBriefcase } from "react-icons/bi";
 import { AiFillLinkedin } from "react-icons/ai";
 import { AiFillGithub } from "react-icons/ai";
 import { LiaExternalLinkAltSolid } from "react-icons/lia";
+// Context
+import { UserContext } from "../context/user/UserContext";
 
 const UserCard = () => {
+  const { userState } = useContext(UserContext);
+
   return (
     <>
       <div className="card bg-base-100 shadow-xl py-6 px-4 h-[25rem]">
@@ -15,8 +22,8 @@ const UserCard = () => {
               <img src="https://i.pinimg.com/474x/0a/a8/58/0aa8581c2cb0aa948d63ce3ddad90c81.jpg" />
             </div>
             <div>
-              <h2>Name</h2>
-              <h3>Email</h3>
+              <h2>{userState.user ? userState.user?.name : "Name"}</h2>
+              <h3>{userState.user ? userState.user?.email : "Email"}</h3>
             </div>
           </div>
           <div>
