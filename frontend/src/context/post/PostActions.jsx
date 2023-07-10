@@ -4,7 +4,7 @@ import axios from "axios";
 const API_URL = "/api/posts/";
 
 // Create post
-export const createPost = async (productData, token) => {
+export const createPost = async (postData, token) => {
   try {
     const config = {
       headers: {
@@ -12,7 +12,8 @@ export const createPost = async (productData, token) => {
       },
     };
 
-    const response = await axios.post(API_URL, productData, config);
+    const response = await axios.post(API_URL, postData, config);
+    console.log("data", response.data);
 
     return response.data;
   } catch (error) {
@@ -82,7 +83,7 @@ export const getPost = async (productId) => {
 // };
 
 // Update post
-export const updatePost = async (productId, productData, token) => {
+export const updatePost = async (productId, postData, token) => {
   try {
     const config = {
       headers: {
@@ -90,7 +91,7 @@ export const updatePost = async (productId, productData, token) => {
       },
     };
 
-    const response = await axios.put(API_URL + productId, productData, config);
+    const response = await axios.put(API_URL + productId, postData, config);
 
     return response.data;
   } catch (error) {

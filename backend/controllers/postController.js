@@ -24,15 +24,16 @@ const createPost = asyncHandler(async (req, res) => {
   }
 
   let imageFileRes;
-  if (req.files.imgFile) {
+  console.log("files", req.files);
+  if (req.files?.imgFile) {
     imageFileRes = await cloudinary.uploader.upload(
       req.files.imgFile.tempFilePath,
-      { resource_type: "image", folder: "socialGram" }
+      { folder: "socialGram" }
     );
   }
 
   let audioFileRes;
-  if (req.files.audioFile) {
+  if (req.files?.audioFile) {
     audioFileRes = await cloudinary.uploader.upload(
       req.files.audioFile.tempFilePath,
       { resource_type: "video", folder: "socialGram" }
@@ -40,7 +41,7 @@ const createPost = asyncHandler(async (req, res) => {
   }
 
   let videoFileRes;
-  if (req.files.videoFile) {
+  if (req.files?.videoFile) {
     videoFileRes = await cloudinary.uploader.upload(
       req.files.videoFile.tempFilePath,
       { resource_type: "video", folder: "socialGram" }
