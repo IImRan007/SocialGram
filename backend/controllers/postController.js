@@ -186,15 +186,21 @@ const deletePost = asyncHandler(async (req, res) => {
     throw new Error("Not authorized");
   }
 
-  await cloudinary.uploader.destroy(post.imgFile.public_id, {
-    resource_type: "image",
-  });
-  await cloudinary.uploader.destroy(post.audioFile.public_id, {
-    resource_type: "video",
-  });
-  await cloudinary.uploader.destroy(post.videoFile.public_id, {
-    resource_type: "video",
-  });
+  if (post.imgFile?.public_id) {
+    await cloudinary.uploader.destroy(post.imgFile.public_id, {
+      resource_type: "image",
+    });
+  }
+  if (post.audioFile?.public_id) {
+    await cloudinary.uploader.destroy(post.audioFile.public_id, {
+      resource_type: "video",
+    });
+  }
+  if (post.videoFile?.public_id) {
+    await cloudinary.uploader.destroy(post.videoFile.public_id, {
+      resource_type: "video",
+    });
+  }
 
   // await post.remove();
   await Post.findByIdAndDelete(req.params.id);

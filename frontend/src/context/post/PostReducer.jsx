@@ -20,6 +20,16 @@ const PostReducer = (state, action) => {
         loading: false,
         message: "Products Fetched Successfully",
       };
+    case "GET_USER_POSTS":
+      return {
+        ...state,
+        posts: action.payload,
+        post: null,
+        error: false,
+        success: true,
+        loading: false,
+        message: "Products Fetched Successfully",
+      };
     case "GET_POST":
       return {
         ...state,

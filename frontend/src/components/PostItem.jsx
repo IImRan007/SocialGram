@@ -1,18 +1,33 @@
 /* eslint-disable react/prop-types */
-import { useState } from "react";
+import { useContext, useState } from "react";
 // Icons
 import { AiOutlineHeart } from "react-icons/ai";
 import { BiComment } from "react-icons/bi";
 import { AiOutlineSend } from "react-icons/ai";
+import { BiTrash } from "react-icons/bi";
+// Context
+import { deletePost } from "../context/post/PostActions";
+// import { PostContext } from "../context/post/PostContext";
+import { UserContext } from "../context/user/UserContext";
 // Lazy Loading Component
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 // Loading Animation
 import Lottie from "lottie-react";
 import Loader from "../assets/loading.json";
+// Toast
+import toast from "react-hot-toast";
 
 const PostItem = ({ post }) => {
   const [commentDiv, setCommentDiv] = useState(false);
+
+  // const { dispatchPost } = useContext(PostContext);
+  const { userState } = useContext(UserContext);
+
+  const hanldeDeletePost = async (id) => {
+    await deletePost(id, userState.user.token);
+    toast.success("Post Deleted Successfully");
+  };
 
   if (!post) {
     return (
@@ -29,9 +44,20 @@ const PostItem = ({ post }) => {
               <img src="https://i.pinimg.com/474x/0a/a8/58/0aa8581c2cb0aa948d63ce3ddad90c81.jpg" />
             </div>
           </div>
-          <div>
-            <h2>User Name</h2>
-            <h3 className="text-[14px]">Moments Ago</h3>
+          <div className="flex w-full items-center justify-between">
+            <div>
+              <h2>Name</h2>
+              <h3 className="text-[14px]">Moments Ago</h3>
+            </div>
+            <div
+              className="relative"
+              onClick={() => hanldeDeletePost(post._id)}
+            >
+              <BiTrash
+                size={24}
+                className="bg-red-400 p-1 cursor-pointer hover:bg-red-600 rounded-full text-white flex items-center justify-center btn-ghost"
+              />
+            </div>
           </div>
         </div>
         {post.description && <div className="mt-4">{post.description}</div>}

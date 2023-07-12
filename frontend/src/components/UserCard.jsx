@@ -1,6 +1,7 @@
 // Icons
 import { RiUserSettingsFill } from "react-icons/ri";
 import { useContext } from "react";
+import { Link } from "react-router-dom";
 // Icons
 import { MdLocationPin } from "react-icons/md";
 import { BiBriefcase } from "react-icons/bi";
@@ -26,9 +27,9 @@ const UserCard = () => {
               <h3>{userState.user ? userState.user?.email : "Email"}</h3>
             </div>
           </div>
-          <div>
+          <Link to="/profile">
             <RiUserSettingsFill className="cursor-pointer" />
-          </div>
+          </Link>
         </div>
         <hr className="mt-4" />
         <div className="mt-4">

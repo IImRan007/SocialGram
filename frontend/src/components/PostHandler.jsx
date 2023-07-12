@@ -46,6 +46,10 @@ const PostHandler = () => {
       console.log({ response });
 
       dispatchPost({ type: "CREATE_POST", payload: response });
+      setDescription("");
+      setImgFile(null);
+      setAudioFile(null);
+      setVideoFile(null);
       toast.success("Post Created Successfully😎");
     } catch (error) {
       toast.error(error.message);
@@ -70,6 +74,7 @@ const PostHandler = () => {
               type="text"
               placeholder="What's on your mind..."
               required
+              value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="input input-bordered input-accent w-full"
             />
