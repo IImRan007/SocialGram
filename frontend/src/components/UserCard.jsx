@@ -1,18 +1,20 @@
 // Icons
 import { RiUserSettingsFill } from "react-icons/ri";
 import { useContext } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 // Icons
 import { MdLocationPin } from "react-icons/md";
 import { BiBriefcase } from "react-icons/bi";
 import { AiFillLinkedin } from "react-icons/ai";
 import { AiFillGithub } from "react-icons/ai";
 import { LiaExternalLinkAltSolid } from "react-icons/lia";
+import { VscEdit } from "react-icons/vsc";
 // Context
 import { UserContext } from "../context/user/UserContext";
 
 const UserCard = () => {
   const { userState } = useContext(UserContext);
+  const location = useLocation();
 
   return (
     <>
@@ -35,11 +37,25 @@ const UserCard = () => {
         <div className="mt-4">
           <div className="flex items-center gap-4">
             <MdLocationPin />
-            <h2>Location</h2>
+            <div className="w-full flex justify-between items-center">
+              <h2>Location</h2>
+              {location.pathname === "/profile" ? (
+                <VscEdit cursor={"pointer"} />
+              ) : (
+                ""
+              )}
+            </div>
           </div>
           <div className="flex items-center gap-4">
             <BiBriefcase />
-            <h2>Designation</h2>
+            <div className="w-full flex justify-between items-center">
+              <h2>Designation</h2>
+              {location.pathname === "/profile" ? (
+                <VscEdit cursor={"pointer"} />
+              ) : (
+                ""
+              )}
+            </div>
           </div>
         </div>
         <hr className="mt-4" />
@@ -63,8 +79,13 @@ const UserCard = () => {
                 <h2>Network Platform</h2>
               </div>
             </div>
-            <div>
+            <div className="flex items-center gap-2">
               <LiaExternalLinkAltSolid size={20} cursor={"pointer"} />
+              {location.pathname === "/profile" ? (
+                <VscEdit cursor={"pointer"} />
+              ) : (
+                ""
+              )}
             </div>
           </div>
           <div className="flex items-center gap-4 justify-between mt-2">
@@ -75,8 +96,13 @@ const UserCard = () => {
                 <h2>Developers Platform</h2>
               </div>
             </div>
-            <div>
+            <div className="flex items-center gap-2">
               <LiaExternalLinkAltSolid size={20} cursor={"pointer"} />
+              {location.pathname === "/profile" ? (
+                <VscEdit cursor={"pointer"} />
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </div>

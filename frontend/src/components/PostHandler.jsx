@@ -15,6 +15,7 @@ import { toast } from "react-hot-toast";
 const PostHandler = () => {
   const [description, setDescription] = useState("");
   const [imgFile, setImgFile] = useState(null);
+  const [prevImgFile, setPrevImgFile] = useState("");
   const [audioFile, setAudioFile] = useState(null);
   const [videoFile, setVideoFile] = useState(null);
 
@@ -23,9 +24,17 @@ const PostHandler = () => {
 
   const onFileChange = (event) => {
     const { name, files } = event.target;
+    let file = files[0];
 
     if (name === "image") {
-      setImgFile(files[0]);
+      setImgFile(file);
+      if (file) {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+          setPrevImgFile(reader.result);
+        };
+      }
     } else if (name === "audio") {
       setAudioFile(files[0]);
     } else if (name === "video") {
@@ -61,7 +70,7 @@ const PostHandler = () => {
       <form
         onSubmit={handleFormSubmit}
         encType="multipart/form-data"
-        className="card h-[11rem] bg-base-100 shadow-xl py-6 px-4"
+        className="card bg-base-100 shadow-xl py-6 px-4 h-full"
       >
         <div className="flex items-center gap-4">
           <div className="avatar flex items-center gap-x-4">
@@ -81,6 +90,11 @@ const PostHandler = () => {
           </div>
         </div>
         <hr className="mt-2" />
+        <div className="mt-2">
+          {prevImgFile && (
+            <img src={prevImgFile} className="h-40 w-40 rounded object-fill" />
+          )}
+        </div>
         <div className="flex items-center justify-evenly mt-4">
           <div className="flex gap-12">
             <input
@@ -107,6 +121,7 @@ const PostHandler = () => {
               accept="image/*"
               onChange={onFileChange}
             />
+
             <div className="flex items-center gap-2 hover:text-[aquamarine]">
               <BsFileEarmarkImage />
               <label htmlFor="image" className="cursor-pointer">

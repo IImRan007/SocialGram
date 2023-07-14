@@ -1,11 +1,11 @@
 import UserCard from "../components/UserCard";
-import Posts from "../components/Posts";
+import PostHandler from "../components/PostHandler";
 
 const Profile = () => {
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 py-6 px-6 gap-8">
       <UserCard />
-      <Posts />
+      <PostHandler />
     </div>
   );
 };
