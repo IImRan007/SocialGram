@@ -26,7 +26,7 @@ const PostItem = ({ post }) => {
 
   const hanldeDeletePost = async (id) => {
     await deletePost(id, userState.user.token);
-    toast.success("Post Deleted Successfully");
+    toast.success("Post Deleted Successfully✌️");
   };
 
   if (!post) {

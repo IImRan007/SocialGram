@@ -1,6 +1,5 @@
-// Icons
 import { RiUserSettingsFill } from "react-icons/ri";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 // Icons
 import { MdLocationPin } from "react-icons/md";
@@ -13,8 +12,20 @@ import { VscEdit } from "react-icons/vsc";
 import { UserContext } from "../context/user/UserContext";
 
 const UserCard = () => {
+  const [userInfo, setUserInfo] = useState({
+    userLocation: "",
+    userDesignation: "",
+  });
   const { userState } = useContext(UserContext);
   const location = useLocation();
+  const { userLocation, userDesignation } = userInfo;
+
+  const handleChange = (e) => {
+    setUserInfo((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
 
   return (
     <>
@@ -24,9 +35,13 @@ const UserCard = () => {
             <div className="w-12 rounded-full">
               <img src="https://i.pinimg.com/474x/0a/a8/58/0aa8581c2cb0aa948d63ce3ddad90c81.jpg" />
             </div>
-            <div className="w-80 h-12">
-              <h2>{userState.user ? userState.user?.name : "Name"}</h2>
-              <h3>{userState.user ? userState.user?.email : "Email"}</h3>
+            <div className="w-40 h-12">
+              <h2 className="w-fit">
+                {userState.user ? userState.user?.name : "Name"}
+              </h2>
+              <h3 className="w-fit">
+                {userState.user ? userState.user?.email : "Email"}
+              </h3>
             </div>
           </div>
           <Link to="/profile">
@@ -40,22 +55,64 @@ const UserCard = () => {
             <div className="w-full flex justify-between items-center">
               <h2>Location</h2>
               {location.pathname === "/profile" ? (
-                <VscEdit cursor={"pointer"} />
+                <VscEdit
+                  cursor={"pointer"}
+                  onClick={() => window.my_modal_5.showModal()}
+                />
               ) : (
                 ""
               )}
             </div>
+            {/* Location Modal */}
+            <dialog id="my_modal_5" className="modal modal-middle">
+              <form method="dialog" className="modal-box">
+                <h3 className="font-bold text-lg">Location</h3>
+                <input
+                  type="text"
+                  id="userLocation"
+                  value={userLocation}
+                  onChange={handleChange}
+                  placeholder="Enter your location"
+                  className="input input-bordered input-accent w-full mt-4"
+                />
+                <div className="modal-action">
+                  {/* if there is a button in form, it will close the modal */}
+                  <button className="btn">Ok</button>
+                </div>
+              </form>
+            </dialog>
           </div>
           <div className="flex items-center gap-4">
             <BiBriefcase />
             <div className="w-full flex justify-between items-center">
               <h2>Designation</h2>
               {location.pathname === "/profile" ? (
-                <VscEdit cursor={"pointer"} />
+                <VscEdit
+                  cursor={"pointer"}
+                  onClick={() => window.my_modal_6.showModal()}
+                />
               ) : (
                 ""
               )}
             </div>
+            {/* Designation Modal */}
+            <dialog id="my_modal_6" className="modal modal-middle">
+              <form method="dialog" className="modal-box">
+                <h3 className="font-bold text-lg">Designation</h3>
+                <input
+                  type="text"
+                  value={userDesignation}
+                  id="userDesignation"
+                  onChange={handleChange}
+                  placeholder="Enter your designation"
+                  className="input input-bordered input-accent w-full mt-4"
+                />
+                <div className="modal-action">
+                  {/* if there is a button in form, it will close the modal */}
+                  <button className="btn">Ok</button>
+                </div>
+              </form>
+            </dialog>
           </div>
         </div>
         <hr className="mt-4" />

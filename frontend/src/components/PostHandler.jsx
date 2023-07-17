@@ -59,6 +59,7 @@ const PostHandler = () => {
       setImgFile(null);
       setAudioFile(null);
       setVideoFile(null);
+      setPrevImgFile("");
       toast.success("Post Created Successfully😎");
     } catch (error) {
       toast.error(error.message);
@@ -96,7 +97,7 @@ const PostHandler = () => {
           )}
         </div>
         <div className="flex items-center justify-evenly mt-4">
-          <div className="flex gap-12">
+          <div className="flex gap-3 sm:gap-12 min-w-full justify-around">
             <input
               id="audio"
               type="file"
