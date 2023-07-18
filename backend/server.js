@@ -33,6 +33,7 @@ app.use(express.urlencoded({ extended: false }));
 
 // Routes
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/users/profile", require("./routes/profileRoutes"));
 app.use("/api/posts", require("./routes/postRoutes"));
 
 // Serve Frontend

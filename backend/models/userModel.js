@@ -15,18 +15,6 @@ const userSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add a password"],
     },
-    location: {
-      type: String,
-    },
-    designation: {
-      type: String,
-    },
-    linkedinUrl: {
-      type: String,
-    },
-    githubUrl: {
-      type: String,
-    },
   },
   {
     timestamps: true,
