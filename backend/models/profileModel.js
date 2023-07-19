@@ -5,6 +5,7 @@ const profileSchema = mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
+      unique: true,
       ref: "User",
     },
     location: {
@@ -22,5 +23,14 @@ const profileSchema = mongoose.Schema(
   },
   { timestamps: true }
 );
+
+// profileSchema.pre("save", async function (next) {
+//   // if (!this.isModified("password")) {
+//   //   return next();
+//   // }
+
+//   // this.password = await bcrypt.hash(this.password, 10);
+//   console.log(this.user);
+// });
 
 module.exports = mongoose.model("Profile", profileSchema);

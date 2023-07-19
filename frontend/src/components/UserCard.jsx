@@ -1,5 +1,5 @@
 import { RiUserSettingsFill } from "react-icons/ri";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 // Icons
 import { MdLocationPin } from "react-icons/md";
@@ -10,15 +10,30 @@ import { LiaExternalLinkAltSolid } from "react-icons/lia";
 import { VscEdit } from "react-icons/vsc";
 // Context
 import { UserContext } from "../context/user/UserContext";
+import { ProfileContext } from "../context/profile/ProfileContext";
+import { getProfile } from "../context/profile/ProfileActions";
 
 const UserCard = () => {
   const [userInfo, setUserInfo] = useState({
     userLocation: "",
     userDesignation: "",
   });
+  const [profileData, setProfileData] = useState([]);
   const { userState } = useContext(UserContext);
-  const location = useLocation();
+  const { profileState, dispatchProfile } = useContext(ProfileContext);
+
   const { userLocation, userDesignation } = userInfo;
+
+  const location = useLocation();
+
+  useEffect(() => {
+    const fetchProfiles = async () => {
+      const data = await getProfile(userState.user.token);
+      dispatchProfile({ type: "GET_USER_PROFILE", payload: data });
+      setProfileData(data);
+    };
+    fetchProfiles();
+  }, []);
 
   const handleChange = (e) => {
     setUserInfo((prevState) => ({
@@ -53,7 +68,10 @@ const UserCard = () => {
           <div className="flex items-center gap-4">
             <MdLocationPin />
             <div className="w-full flex justify-between items-center">
-              <h2>Location</h2>
+              <h2>
+                {profileData &&
+                  (profileData ? profileData[0]?.location : "Location")}
+              </h2>
               {location.pathname === "/profile" ? (
                 <VscEdit
                   cursor={"pointer"}
@@ -85,7 +103,10 @@ const UserCard = () => {
           <div className="flex items-center gap-4">
             <BiBriefcase />
             <div className="w-full flex justify-between items-center">
-              <h2>Designation</h2>
+              <h2>
+                {profileData &&
+                  (profileData ? profileData[0]?.designation : "Designation")}
+              </h2>
               {location.pathname === "/profile" ? (
                 <VscEdit
                   cursor={"pointer"}
