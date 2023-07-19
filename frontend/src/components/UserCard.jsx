@@ -11,7 +11,11 @@ import { VscEdit } from "react-icons/vsc";
 // Context
 import { UserContext } from "../context/user/UserContext";
 import { ProfileContext } from "../context/profile/ProfileContext";
-import { getProfile } from "../context/profile/ProfileActions";
+import {
+  createProfile,
+  getProfile,
+  updateProfile,
+} from "../context/profile/ProfileActions";
 
 const UserCard = () => {
   const [userInfo, setUserInfo] = useState({
@@ -24,7 +28,7 @@ const UserCard = () => {
 
   const { userLocation, userDesignation } = userInfo;
 
-  const location = useLocation();
+  const pathname = useLocation().pathname;
 
   useEffect(() => {
     const fetchProfiles = async () => {
@@ -33,13 +37,31 @@ const UserCard = () => {
       setProfileData(data);
     };
     fetchProfiles();
-  }, []);
+  }, [userState.user.token]);
 
   const handleChange = (e) => {
     setUserInfo((prevState) => ({
       ...prevState,
       [e.target.id]: e.target.value,
     }));
+  };
+
+  const handleData = async (e) => {
+    e.preventDefault();
+    console.log("profileData", profileData);
+    if (profileData.length > 0) {
+      await updateProfile(
+        profileData[0]?._id,
+        { location: userLocation, designation: userDesignation },
+        userState.user.token
+      );
+    } else {
+      const data = await createProfile(
+        { location: userLocation, designation: userDesignation },
+        userState.user.token
+      );
+      dispatchProfile({ type: "CREATE_PROFILE", payload: data });
+    }
   };
 
   return (
@@ -72,7 +94,7 @@ const UserCard = () => {
                 {profileData &&
                   (profileData ? profileData[0]?.location : "Location")}
               </h2>
-              {location.pathname === "/profile" ? (
+              {pathname === "/profile" ? (
                 <VscEdit
                   cursor={"pointer"}
                   onClick={() => window.my_modal_5.showModal()}
@@ -83,7 +105,7 @@ const UserCard = () => {
             </div>
             {/* Location Modal */}
             <dialog id="my_modal_5" className="modal modal-middle">
-              <form method="dialog" className="modal-box">
+              <form method="dialog" className="modal-box" onSubmit={handleData}>
                 <h3 className="font-bold text-lg">Location</h3>
                 <input
                   type="text"
@@ -107,7 +129,7 @@ const UserCard = () => {
                 {profileData &&
                   (profileData ? profileData[0]?.designation : "Designation")}
               </h2>
-              {location.pathname === "/profile" ? (
+              {pathname === "/profile" ? (
                 <VscEdit
                   cursor={"pointer"}
                   onClick={() => window.my_modal_6.showModal()}
@@ -118,7 +140,7 @@ const UserCard = () => {
             </div>
             {/* Designation Modal */}
             <dialog id="my_modal_6" className="modal modal-middle">
-              <form method="dialog" className="modal-box">
+              <form method="dialog" className="modal-box" onSubmit={handleData}>
                 <h3 className="font-bold text-lg">Designation</h3>
                 <input
                   type="text"
@@ -159,11 +181,7 @@ const UserCard = () => {
             </div>
             <div className="flex items-center gap-2">
               <LiaExternalLinkAltSolid size={20} cursor={"pointer"} />
-              {location.pathname === "/profile" ? (
-                <VscEdit cursor={"pointer"} />
-              ) : (
-                ""
-              )}
+              {pathname === "/profile" ? <VscEdit cursor={"pointer"} /> : ""}
             </div>
           </div>
           <div className="flex items-center gap-4 justify-between mt-2">
@@ -176,11 +194,7 @@ const UserCard = () => {
             </div>
             <div className="flex items-center gap-2">
               <LiaExternalLinkAltSolid size={20} cursor={"pointer"} />
-              {location.pathname === "/profile" ? (
-                <VscEdit cursor={"pointer"} />
-              ) : (
-                ""
-              )}
+              {pathname === "/profile" ? <VscEdit cursor={"pointer"} /> : ""}
             </div>
           </div>
         </div>
