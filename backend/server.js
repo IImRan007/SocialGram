@@ -39,11 +39,11 @@ app.use("/api/posts", require("./routes/postRoutes"));
 // Serve Frontend
 if (process.env.NODE_ENV === "production") {
   // Set build folder as static
-  app.use(express.static(path.join(__dirname, "../frontend/build")));
+  app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
   // FIX: below code fixes app crashing on refresh in deployment
   app.get("*", (_, res) => {
-    res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+    res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
   });
 } else {
   app.get("/", (_, res) => {
