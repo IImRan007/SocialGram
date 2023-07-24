@@ -54,7 +54,6 @@ const PostHandler = () => {
 
       const response = await createPost(formData, userState.user.token);
       console.log({ response });
-
       dispatchPost({ type: "CREATE_POST", payload: response });
       setDescription("");
       setImgFile(null);
