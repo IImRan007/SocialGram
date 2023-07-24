@@ -98,7 +98,7 @@ const getPosts = asyncHandler(async (req, res) => {
 // @route GET /api/posts/all
 // @access Public
 const getAllPosts = asyncHandler(async (req, res) => {
-  const data = await Post.find();
+  const data = await Post.find().populate("user", "name email");
 
   res.status(200).json(data);
 });

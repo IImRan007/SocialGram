@@ -45,6 +45,7 @@ const PostHandler = () => {
   const handleFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      document.getElementById("postBtn").disabled = true;
       let formData = new FormData();
       formData.append("description", description);
       formData.append("imgFile", imgFile);
@@ -61,6 +62,7 @@ const PostHandler = () => {
       setVideoFile(null);
       setPrevImgFile("");
       toast.success("Post Created Successfully😎");
+      document.getElementById("postBtn").disabled = false;
     } catch (error) {
       toast.error(error.message);
     }
@@ -141,7 +143,10 @@ const PostHandler = () => {
                 Audio
               </label>
             </div>
-            <button className="btn btn-info bg-[#2ee7a9] border-black">
+            <button
+              id="postBtn"
+              className="btn btn-info bg-[#2ee7a9] border-black"
+            >
               Post
             </button>
           </div>

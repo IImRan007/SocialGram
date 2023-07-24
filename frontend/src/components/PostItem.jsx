@@ -46,7 +46,7 @@ const PostItem = ({ post }) => {
           </div>
           <div className="flex w-full items-center justify-between">
             <div>
-              <h2>Name</h2>
+              <h2>{post?.user?.name}</h2>
               <h3 className="text-[14px]">Moments Ago</h3>
             </div>
             <div
