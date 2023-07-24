@@ -83,14 +83,16 @@ const updateProfile = asyncHandler(async (req, res) => {
     res.status(401);
     throw new Error("Not authorized");
   }
-
+  console.log("body", req.body);
   const updatedProfile = await Profile.findByIdAndUpdate(
     req.params.id,
     req.body,
     {
-      new: true,
+      overwrite: true,
     }
   );
+
+  console.log(updatedProfile);
 
   res.status(200).json(updatedProfile);
 });
