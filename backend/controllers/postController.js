@@ -89,7 +89,10 @@ const getPosts = asyncHandler(async (req, res) => {
     throw new Error("User not found");
   }
 
-  const products = await Post.find({ user: req.user.id });
+  const products = await Post.find({ user: req.user.id }).populate(
+    "user",
+    "name email"
+  );
 
   res.status(200).json(products);
 });
